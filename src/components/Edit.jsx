@@ -29,31 +29,32 @@ function Edit() {
 
     const UpdateProductHandler = (e) => {
         e.preventDefault();
-
-        // Validation
+    
+        // Convert price to a string before trimming
         if (
             product.title.trim().length < 5 ||
             product.image.trim().length < 5 ||
             product.category.trim().length < 5 ||
-            product.price.trim().length < 1 ||
+            String(product.price).trim().length < 1 ||  // Convert price to string
             product.description.trim().length < 5
         ) {
             alert("All fields are required, and some have minimum length requirements.");
             return;
         }
-
+    
         // Update the product in the products array
         const updatedProducts = products.map((p) => (p.id == id ? product : p));
         setProducts(updatedProducts);
-
+    
         // Save the updated products array to localStorage
         localStorage.setItem("products", JSON.stringify(updatedProducts));
-
+    
         // Navigate back to the home page
         navigate("/");
-
+    
         console.log("Product updated:", product);
     };
+    
 
     return (
         <form className='p-[5%] w-screen h-screen flex flex-col' onSubmit={UpdateProductHandler}>
